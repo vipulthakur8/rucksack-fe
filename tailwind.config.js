@@ -6,6 +6,16 @@ export default {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      "inter": ['Inter', 'sans-serif'],
+      "mono": ['Roboto Mono', 'monospace']
+    },
+    colors: {
+      'black': '#000',
+      'white': '#fff',
+      'olive': '#373e02',
+      'bg-olive': '#e7ecd4'
+    }
   },
   plugins: [require("daisyui")],
 }
