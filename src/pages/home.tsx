@@ -12,10 +12,10 @@ function Home() {
                             Store your confidential documents, images, and videos.
                         </h1>
                         <div className="mt-[2rem] w-fit mx-auto md:full md:ml-0">
-                            <Link to={'/login'} className="btn bg-olive text-white text-[16px] md:text-[18px] hover:text-[22px] hover:bg-olive">
+                            <Link to={'/login'} className="btn btn-sm md:btn-md bg-olive text-white text-[16px] md:text-[18px] hover:text-[22px] hover:bg-olive">
                                 Login
                             </Link>
-                            <Link to={'/signup'} className="btn bg-olive text-[16px] md:text-[18px] text-white ml-[1rem] hover:text-[22px] hover:bg-olive">
+                            <Link to={'/signup'} className="btn btn-sm md:btn-md bg-olive text-[16px] md:text-[18px] text-white ml-[1rem] hover:text-[22px] hover:bg-olive">
                                 Sign up
                             </Link>
                         </div>
