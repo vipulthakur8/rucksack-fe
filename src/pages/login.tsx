@@ -5,10 +5,16 @@ import * as yup from 'yup';
 import Header from "../components/header";
 
 
+// interface LoginCred {
+//     email: string | undefined,
+//     password: string | undefined
+// }
+
 const schema = yup.object({
     email: yup.string().email().trim().lowercase().required(),
     password: yup.string().trim().min(8)
 }).required()
+
 
 function Login() {
 
@@ -18,7 +24,7 @@ function Login() {
         formState: {errors},
     } = useForm({resolver: yupResolver(schema)})
 
-    const onSubmit = (data) => {
+    const onSubmit = (data: any) => {
         console.log(data);
     }
 
