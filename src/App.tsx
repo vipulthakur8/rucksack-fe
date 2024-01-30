@@ -6,10 +6,26 @@ import Login from './pages/login.tsx';
 import Signup from './pages/signup.tsx';
 import ProtectedRoute from './components/protectedRoute.tsx';
 import Dashboard from './pages/dashboard.tsx';
+import DbHome from './pages/dbHome.tsx';
 
-function App() {
+import Modal from './components/modal.tsx';
+
+import { connect } from 'react-redux';
+import { resetFileUpload, setFileUpload } from './store/uiActions.ts';
+import FileUpload from './components/fileUpload.tsx';
+
+function App(props: any) {
 
   return (
+    <>
+    {
+      props.ui.showFUSection && <Modal />
+    }
+
+    {
+      props.ui.showFUSection && <FileUpload closeSection={props.onResetFU} />
+    }
+
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />} />  
@@ -21,15 +37,31 @@ function App() {
           <Signup />
         }/>
 
-        <Route path='/dashboard' element={<ProtectedRoute toll={true} redirectTo={'/'} />}>
-          <Route index element={<Dashboard />} />
+        <Route element={<ProtectedRoute toll={true} redirectTo={'/'} />}>
+          <Route path='/dashboard' element={<Dashboard />} >
+            <Route index element={<DbHome />} />
+          </Route>
         </Route>
 
         <Route path='*' element={<Home />} />
 
       </Routes>    
     </BrowserRouter>
+    </>
   )
 }
 
-export default App
+const mapStateToProps = (state:any) => {
+  return {
+    ui: state.ui
+  }
+}
+
+const mapDispatchToProps = (dispatch:any) => {
+  return {
+    onSetFU: () => dispatch(setFileUpload()),
+    onResetFU: () => dispatch(resetFileUpload())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

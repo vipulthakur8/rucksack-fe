@@ -5,9 +5,10 @@ import './index.css'
 
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
+import uiReducer from './store/uiReducer.ts';
 
 const rootReducers = combineReducers({
-
+  ui: uiReducer
 })
 
 const store = configureStore({
