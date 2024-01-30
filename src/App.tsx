@@ -4,6 +4,8 @@ import { BrowserRouter , Route, Routes } from 'react-router-dom';
 import Home from './pages/home.tsx';
 import Login from './pages/login.tsx';
 import Signup from './pages/signup.tsx';
+import ProtectedRoute from './components/protectedRoute.tsx';
+import Dashboard from './pages/dashboard.tsx';
 
 function App() {
 
@@ -18,6 +20,12 @@ function App() {
         <Route path='/signup' element={
           <Signup />
         }/>
+
+        <Route path='/dashboard' element={<ProtectedRoute toll={true} redirectTo={'/'} />}>
+          <Route index element={<Dashboard />} />
+        </Route>
+
+        <Route path='*' element={<Home />} />
 
       </Routes>    
     </BrowserRouter>
