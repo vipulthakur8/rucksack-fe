@@ -1,8 +1,24 @@
 
-import { SHOW_FILE_UPLOAD_SECTION, HIDE_FILE_UPLOAD_SECTION } from "./uiActionTypes"
+import { SHOW_FILE_UPLOAD_SECTION, HIDE_FILE_UPLOAD_SECTION, SET_ERROR, RESET_ERROR, SET_SUCCESS, RESET_SUCCESS } from "./uiActionTypes"
 
 const initialState = {
-    showFUSection: false
+    showFUSection: false,
+    error: {
+        isError: false,
+        errorMessage: '',
+        redirect: {
+            shouldRedirect: false,
+            path: ''
+        }
+    },
+    success: {
+        isSuccess: false,
+        successMessage: '',
+        redirect: {
+            shouldRedirect: false,
+            path: ''
+        }
+    }
 }
 
 export default function uiReducer(state = initialState, action:any) {
@@ -18,7 +34,58 @@ export default function uiReducer(state = initialState, action:any) {
                 ...state,
                 showFUSection: action.payload
             }
-            
+        case SET_ERROR:
+            return {
+                ...state,
+                error: {
+                    ...state.error,
+                    isError: action.payload.isError,
+                    errorMessage: action.payload.errorMessage,
+                    redirect: {
+                        ...state.error.redirect,
+                        shouldRedirect: action.payload.redirect.shouldRedirect,
+                        path: action.paylaod.redirect.path
+                    }
+                }
+            }      
+        case RESET_ERROR:
+            return {
+                ...state,
+                error: {
+                    isError: false,
+                    errorMessage: '',
+                    redirect: {
+                        shouldRedirect: false,
+                        path: ''
+                    }
+                }
+            } 
+        case SET_SUCCESS:
+            return {
+                ...state,
+                success: {
+                    ...state.success,
+                    isSuccess: action.payload.isSuccess,
+                    successMessage: action.payload.successMessage,
+                    redirect: {
+                        ...state.success.redirect,
+                        shouldRedirect: action.payload.redirect.shouldRedirect,
+                        path: action.payload.redirect.path
+                    }
+                }
+            } 
+        case RESET_SUCCESS: 
+            return {
+                ...state,
+                success: {
+                    isSuccess: false,
+                    successMessage: '',
+                    redirect: {
+                        shouldRedirect: false,
+                        path: ''
+                    }
+                }
+            }
         default:
             return state
     }

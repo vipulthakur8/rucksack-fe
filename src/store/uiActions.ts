@@ -1,5 +1,5 @@
 
-import { SHOW_FILE_UPLOAD_SECTION, HIDE_FILE_UPLOAD_SECTION } from "./uiActionTypes"
+import { SHOW_FILE_UPLOAD_SECTION, HIDE_FILE_UPLOAD_SECTION, SET_ERROR, RESET_ERROR, SET_SUCCESS, RESET_SUCCESS } from "./uiActionTypes"
 
 
 export const setFileUpload = () => {
@@ -16,4 +16,28 @@ export const resetFileUpload = () => {
     }
 }
 
+export const setError = (value: object) => {
+    return {
+        type: SET_ERROR,
+        payload: value
+    }
+}
 
+export const resetError = () => {
+    return {
+        type: RESET_ERROR
+    }
+}
+
+export const setSuccess = (value: object) => {
+    return {
+        type: SET_SUCCESS,
+        payload: value
+    }
+}
+
+export const resetSuccess = () => {
+    return {
+        type: RESET_SUCCESS
+    }
+}

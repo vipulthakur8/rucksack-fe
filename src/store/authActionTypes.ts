@@ -1,0 +1,2 @@
+export const SET_SIGNEDUP = 'SET_SIGNEDUP';
+export const RESET_SIGNEDUP = 'RESET_SIGNEDUP'

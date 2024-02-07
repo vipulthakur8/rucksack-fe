@@ -3,6 +3,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup';
 
 import Header from "../components/header";
+import { connect } from "react-redux";
+import { signupRequest } from "../store/authActions";
 
 const schema = yup.object({
     firstName: yup.string().trim().lowercase().required(),
@@ -13,7 +15,7 @@ const schema = yup.object({
 }).required()
 
 
-function Signup() {
+function Signup(props:any) {
 
     const {
         register,
@@ -23,6 +25,7 @@ function Signup() {
 
     const onSubmit = (data: any) => {
         console.log(data);
+        return props.onSignupRequest(data)
     }
 
     return (
@@ -53,5 +56,10 @@ function Signup() {
     )
 }
 
+const mapDispatchToProps = (dispatch:any) => {
+    return {
+        onSignupRequest: (value:object) => dispatch(signupRequest(value))
+    }
+}
 
-export default Signup;
+export default connect(null, mapDispatchToProps)(Signup);

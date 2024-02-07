@@ -11,22 +11,46 @@ import DbHome from './pages/dbHome.tsx';
 import Modal from './components/modal.tsx';
 
 import { connect } from 'react-redux';
-import { resetFileUpload, setFileUpload } from './store/uiActions.ts';
+import { resetError, resetFileUpload, resetSuccess, setFileUpload } from './store/uiActions.ts';
 import FileUpload from './components/fileUpload.tsx';
+import MessageBox from './components/messageBox.tsx';
 
 function App(props: any) {
 
   return (
     <>
-    {
-      props.ui.showFUSection && <Modal />
-    }
-
-    {
-      props.ui.showFUSection && <FileUpload closeSection={props.onResetFU} />
-    }
+  
 
     <BrowserRouter>
+
+      {
+        (props.ui.showFUSection || props.ui.error.isError || props.ui.success.isSuccess) && <Modal />
+      }
+
+      {
+        props.ui.showFUSection && <FileUpload closeSection={props.onResetFU} />
+      }
+
+      {
+        (props.ui.error.isError) 
+        && 
+        <MessageBox 
+        message={props.ui.error.errorMessage} 
+        redirect={props.ui.error.redirect} 
+        removeMessageBox={props.onResetError}
+        />
+      }
+
+      {
+        (props.ui.success.isSuccess) 
+        && 
+        <MessageBox 
+        message={props.ui.success.successMessage} 
+        redirect={props.ui.success.redirect} 
+        removeMessageBox={props.onResetSuccess}
+        />
+      }
+
       <Routes>
         <Route path='/' element={<Home />} />  
         <Route path='/login' element={
@@ -57,10 +81,12 @@ const mapStateToProps = (state:any) => {
   }
 }
 
-const mapDispatchToProps = (dispatch:any) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
     onSetFU: () => dispatch(setFileUpload()),
-    onResetFU: () => dispatch(resetFileUpload())
+    onResetFU: () => dispatch(resetFileUpload()),
+    onResetError: () => dispatch(resetError()),
+    onResetSuccess: () => dispatch(resetSuccess())
   }
 }
 
