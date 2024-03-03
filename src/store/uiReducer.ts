@@ -1,5 +1,5 @@
 
-import { SHOW_FILE_UPLOAD_SECTION, HIDE_FILE_UPLOAD_SECTION, SET_ERROR, RESET_ERROR, SET_SUCCESS, RESET_SUCCESS } from "./uiActionTypes"
+import { SHOW_FILE_UPLOAD_SECTION, HIDE_FILE_UPLOAD_SECTION, SET_ERROR, RESET_ERROR, SET_SUCCESS, RESET_SUCCESS, SET_LOADING, RESET_LOADING } from "./uiActionTypes"
 
 const initialState = {
     showFUSection: false,
@@ -18,7 +18,8 @@ const initialState = {
             shouldRedirect: false,
             path: ''
         }
-    }
+    },
+    loading: false,
 }
 
 export default function uiReducer(state = initialState, action:any) {
@@ -86,6 +87,19 @@ export default function uiReducer(state = initialState, action:any) {
                     }
                 }
             }
+
+        case SET_LOADING:
+            return {
+                ...state,
+                loading: true
+            }
+        case RESET_LOADING:
+            return {
+                ...state,
+                loading: false
+            }
+        
+
         default:
             return state
     }

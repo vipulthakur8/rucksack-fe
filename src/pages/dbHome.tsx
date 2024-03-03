@@ -21,7 +21,7 @@ function DbHome(props: any) {
                 <div className="flex items-center justify-between md:w-1/3 my-[2rem]">
                     <input type="text" placeholder="Search" className="input input-bordered w-full max-w-xs" />
                     <div className="md:w-1/4 flex items-center justify-between">
-                        <p>Hi, {'Vipul'}</p>
+                        <p>Hi, {props.auth.user.firstName ? props.auth.user.firstName.toUpperCase() : 'User'}</p>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-9 h-9">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
@@ -51,7 +51,8 @@ function DbHome(props: any) {
 
 const mapStateToProps = (state:any) => {
     return {
-      ui: state.ui
+      ui: state.ui,
+      auth: state.auth
     }
   }
   

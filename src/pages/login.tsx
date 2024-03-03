@@ -4,6 +4,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup';
 import Header from "../components/header";
 import { useEffect } from "react";
+import { loginRequest, resetSignedUp } from "../store/authActions";
+import { connect } from "react-redux";
+import { resetSuccess } from "../store/uiActions";
+import { useNavigate } from "react-router-dom";
 
 
 // interface LoginCred {
@@ -17,11 +21,18 @@ const schema = yup.object({
 }).required()
 
 
-function Login() {
+function Login(props: any) {
+    let navigate = useNavigate()
+    useEffect(() => {
+        props.onResetSuccess()
+        props.onResetSignedUp(false);
+    }, [])
 
     useEffect(() => {
-        
-    }, [])
+        if (props.auth.authenticated) {
+            navigate('/dashboard');
+        }
+    }, [props.auth.authenticated])
 
     const {
         register,
@@ -31,6 +42,7 @@ function Login() {
 
     const onSubmit = (data: any) => {
         console.log(data);
+        props.onLoginRequestHandler(data)
     }
 
     // function changeHandler(e) {
@@ -74,4 +86,18 @@ function Login() {
     )
 }
 
-export default Login;
+const mapStateToProps = (state: any) => {
+    return {
+        auth: state.auth
+    }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        onResetSignedUp: (value:boolean) => dispatch(resetSignedUp(value)),
+        onResetSuccess: () => dispatch(resetSuccess()),
+        onLoginRequestHandler: (value:object) => dispatch(loginRequest(value))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -1,7 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/header";
+import { useEffect } from "react";
+import { connect } from "react-redux";
 
-function Home() {
+function Home(props:any) {
+    let navigate = useNavigate()
+    useEffect(() => {
+        if (props.auth.authenticated) {
+            navigate('/dashboard');
+        }
+    }, [])
+
     return (
         <div className="font-inter">
             <Header />
@@ -30,4 +39,16 @@ function Home() {
     )
 }
 
-export default Home;
+const mapStateToProps = (state:any) => {
+    return {
+        auth: state.auth
+    }
+}
+
+const mapDispatchToProps = (disptach:any) => {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

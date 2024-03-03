@@ -6,9 +6,11 @@ import './index.css'
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import uiReducer from './store/uiReducer.ts';
+import authReducer from './store/authReducer.ts';
 
 const rootReducers = combineReducers({
-  ui: uiReducer
+  ui: uiReducer,
+  auth: authReducer
 })
 
 const store = configureStore({

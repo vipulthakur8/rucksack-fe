@@ -14,6 +14,8 @@ import { connect } from 'react-redux';
 import { resetError, resetFileUpload, resetSuccess, setFileUpload } from './store/uiActions.ts';
 import FileUpload from './components/fileUpload.tsx';
 import MessageBox from './components/messageBox.tsx';
+import Loading from './components/loading.tsx';
+import Logout from './pages/logout.tsx';
 
 function App(props: any) {
 
@@ -24,11 +26,19 @@ function App(props: any) {
     <BrowserRouter>
 
       {
-        (props.ui.showFUSection || props.ui.error.isError || props.ui.success.isSuccess) && <Modal />
+        (props.ui.loading || props.ui.showFUSection || props.ui.error.isError || props.ui.success.isSuccess) && <Modal />
       }
 
       {
         props.ui.showFUSection && <FileUpload closeSection={props.onResetFU} />
+      }
+
+      {
+        props.ui.loading  
+        && 
+        <div className='z-[500] bg-white p-6 fixed top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%]'>
+          <Loading />
+        </div>
       }
 
       {
@@ -66,6 +76,10 @@ function App(props: any) {
             <Route index element={<DbHome />} />
           </Route>
         </Route>
+
+        <Route path='/logout' element={
+          <Logout />
+        } />
 
         <Route path='*' element={<Home />} />
 
