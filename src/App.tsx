@@ -1,5 +1,6 @@
 
 import { BrowserRouter , Route, Routes } from 'react-router-dom';
+import {motion} from 'framer-motion';
 // import Header from './components/header.tsx';
 import Home from './pages/home.tsx';
 import Login from './pages/login.tsx';
@@ -26,19 +27,36 @@ function App(props: any) {
     <BrowserRouter>
 
       {
-        (props.ui.loading || props.ui.showFUSection || props.ui.error.isError || props.ui.success.isSuccess) && <Modal />
+        (props.ui.error.isError || props.ui.success.isSuccess) && <Modal />
       }
 
       {
-        props.ui.showFUSection && <FileUpload closeSection={props.onResetFU} />
+        props.ui.showFUSection 
+        && 
+        <div className='fixed z-[380] w-full h-full bg-modal'>
+        <motion.div
+        initial={{ y: 200, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 200, opacity: 0 }} 
+        transition={{ duration: 0.5 }} 
+        className='absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%] z-[400]'
+        >
+          <FileUpload closeSection={props.onResetFU} />
+        </motion.div>
+        </div>
+        // <FileUpload closeSection={props.onResetFU} />
+
       }
 
       {
         props.ui.loading  
         && 
-        <div className='z-[500] bg-white p-6 fixed top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%]'>
-          <Loading />
+        <div className='bg-modal z-[400] fixed w-full h-full'>
+           <div className='z-[500] bg-white p-10 fixed top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%]'>
+              <Loading />
+            </div>
         </div>
+       
       }
 
       {

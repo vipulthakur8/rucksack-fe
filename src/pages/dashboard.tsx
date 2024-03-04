@@ -1,7 +1,16 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import DashboardSideNav from "../components/dashboardSideNav";
+import { connect } from "react-redux";
+import { useEffect } from "react";
 
-function Dashboard() {
+function Dashboard(props:any) {
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (!props.auth.authenticated) {
+            navigate('/')
+        }
+    }, [props.auth.authenticated])
+
     return (
         <div>
             {/* side section */}
@@ -15,4 +24,10 @@ function Dashboard() {
     )
 }
 
-export default Dashboard;
+const mapStateToProps = (state: any) => {
+    return {
+        auth: state.auth
+    }
+}
+
+export default connect(mapStateToProps, null)(Dashboard);

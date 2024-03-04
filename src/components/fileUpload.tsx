@@ -1,7 +1,24 @@
+import { useState } from "react";
+
 
 function FileUpload(props:any) {
+
+    // const [loading, setLoading] = useState(false)
+    const [file, setFile] = useState(null);
+    const [fileType, setFileType] = useState('')
+
+    const changeHandler = (e:any) => {
+        setFile(e.target.files[0])
+        setFileType(e.target.files[0].type)
+    }
+
+    const submitHandler = () => {
+        console.log(file)
+    }
+
+    console.log("[File in fileupload]", fileType)
     return (
-        <div className="font-inter fixed top-[50%] left-[50%] transfrom -translate-x-[50%] -translate-y-[50%] bg-white z-[250] lg:w-[600px] p-2">
+        <div className="font-inter bg-white z-[250] lg:w-[600px]  p-2 fixed top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%]">
             <div className="flex items-center justify-between p-2">
                 <div>
 
@@ -14,11 +31,30 @@ function FileUpload(props:any) {
             </div>
 
             <div className="p-6">
-                <input type="file" className="file-input file-input-bordered file-input-olive w-full max-w-full" />
+                <input onChange={changeHandler} type="file" className="file-input file-input-bordered file-input-olive w-full max-w-full" />
             </div>
 
+            {
+                fileType.slice(0,6) == 'video/'
+                &&
+                <div>
+                <h2>Video Player</h2>
+                {
+                    file
+                    &&
+                    <video width="640" height="360" controls>
+                    <source src={URL.createObjectURL(file)} type="video/mp4" />
+                    {/* You can add additional source elements for different video formats */}
+                    Your browser does not support the video tag.
+                    </video>
+                }
+              
+              </div>
+            }
+            
+
             <div>
-                <button className="btn btn-md block mx-auto mb-[1rem] text-[16px] text-olive bg-bg-olive hover:bg-bg-olive">
+                <button onClick={submitHandler} className="btn btn-md block mx-auto mb-[1rem] text-[16px] text-olive bg-bg-olive hover:bg-bg-olive">
                     Upload
                 </button>
             </div>
