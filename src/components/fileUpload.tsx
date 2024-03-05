@@ -16,7 +16,7 @@ function FileUpload(props:any) {
         console.log(file)
     }
 
-    console.log("[File in fileupload]", fileType)
+    // console.log("[File in fileupload]", fileType)
     return (
         <div className="font-inter bg-white z-[250] lg:w-[600px]  p-2 fixed top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%]">
             <div className="flex items-center justify-between p-2">
@@ -35,18 +35,29 @@ function FileUpload(props:any) {
             </div>
 
             {
-                fileType.slice(0,6) == 'video/'
+                fileType.split('/')[0] === 'image'
                 &&
-                <div>
-                <h2>Video Player</h2>
+                <div className="p-6">
+                    {
+                        file
+                        &&
+                        <img src={URL.createObjectURL(file)} className="block mx-auto"/>
+                    }
+                </div>
+            }
+            
+            {
+                fileType.split('/')[0] === 'video'
+                &&
+                <div className="p-6">
                 {
                     file
                     &&
-                    <video width="640" height="360" controls>
+                    <video width="500" height="300" className="block mx-auto" controls>
                     <source src={URL.createObjectURL(file)} type="video/mp4" />
                     {/* You can add additional source elements for different video formats */}
                     Your browser does not support the video tag.
-                    </video>
+                        </video>
                 }
               
               </div>
