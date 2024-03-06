@@ -2,6 +2,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import DashboardSideNav from "../components/dashboardSideNav";
 import { connect } from "react-redux";
 import { useEffect } from "react";
+import UploadStatus from "../components/uploadStatus";
 
 function Dashboard(props:any) {
     const navigate = useNavigate()
@@ -13,6 +14,15 @@ function Dashboard(props:any) {
 
     return (
         <div>
+
+            {
+                props.ui.uploadDuration 
+                && 
+                <div className="fixed h-full w-full z-[540] bg-modal">
+                    <UploadStatus />
+                </div>
+            }
+
             {/* side section */}
             <DashboardSideNav />
 
@@ -26,7 +36,8 @@ function Dashboard(props:any) {
 
 const mapStateToProps = (state: any) => {
     return {
-        auth: state.auth
+        auth: state.auth,
+        ui: state.ui
     }
 }
 

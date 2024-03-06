@@ -1,22 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { fileUploadRequest } from "../store/userActions";
+import { setError } from "../store/uiActions";
 
 
 function FileUpload(props:any) {
 
     // const [loading, setLoading] = useState(false)
-    const [file, setFile] = useState(null);
-    const [fileType, setFileType] = useState('')
+    const [file, setFile] = useState<Blob>();
+
+    useEffect(() => {
+
+        if (props.ui.error.isError || props.ui.uploadDuration) {
+            props.closeSection()
+        }
+
+        // if (props.user.fileUploaded) {
+        //     props.closeSection()
+        // }
+    }, [props.ui.error.isError, props.ui.uploadDuration])
 
     const changeHandler = (e:any) => {
         setFile(e.target.files[0])
-        setFileType(e.target.files[0].type)
     }
 
     const submitHandler = () => {
         console.log(file)
+        if (file && file.size >= 100*1024) {
+            return props.onSetError({
+                isError: true,
+                errorMessage: 'File size exceeded, only file size upto 100 MB is allowed',
+                redirect: {
+                    shouldRedirect: false,
+                    path: ''
+                }
+            })
+        }
+        return props.onFileUploadRequest({
+            file
+        })
     }
 
-    // console.log("[File in fileupload]", fileType)
+    // console.log("[File in fileupload]", file)
     return (
         <div className="font-inter bg-white z-[250] lg:w-[600px]  p-2 fixed top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%]">
             <div className="flex items-center justify-between p-2">
@@ -35,7 +60,7 @@ function FileUpload(props:any) {
             </div>
 
             {
-                fileType.split('/')[0] === 'image'
+                (file && file.type.split('/')[0] === 'image')
                 &&
                 <div className="p-6">
                     {
@@ -47,7 +72,7 @@ function FileUpload(props:any) {
             }
             
             {
-                fileType.split('/')[0] === 'video'
+                (file && file.type.split('/')[0] === 'video')
                 &&
                 <div className="p-6">
                 {
@@ -73,4 +98,19 @@ function FileUpload(props:any) {
     )
 }
 
-export default FileUpload;
+const mapStateToProps = (state:any) => {
+    return {
+        auth:state.auth,
+        user: state.user,
+        ui: state.ui
+    }
+}
+
+const mapDispatchToProps = (dispatch:any) => {
+    return {
+        onFileUploadRequest: (value:Object) => dispatch(fileUploadRequest(value)),
+        onSetError: (value:Object) => dispatch(setError(value))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FileUpload);

@@ -70,10 +70,11 @@ export const loginRequest = (value:object) => {
                 console.log("apiResponse", apiResponse)
                 dispatch(setLogin(apiResponse.data))
             }
-        } catch (error) {
+        } catch (error:any) {
+            dispatch(resetLoading())
             dispatch(setError({
                 isError: true,
-                errorMessage: '',
+                errorMessage: error.response.data.errorMessage,
                 redirect: {
                     shouldRedirect: false,
                     path: ''

@@ -1,8 +1,14 @@
 
-import { SHOW_FILE_UPLOAD_SECTION, HIDE_FILE_UPLOAD_SECTION, SET_ERROR, RESET_ERROR, SET_SUCCESS, RESET_SUCCESS, SET_LOADING, RESET_LOADING } from "./uiActionTypes"
+import { SHOW_FILE_UPLOAD_SECTION, HIDE_FILE_UPLOAD_SECTION, SET_ERROR, RESET_ERROR, SET_SUCCESS, RESET_SUCCESS, SET_LOADING, RESET_LOADING, SET_UPLOAD_DURATION, RESET_UPLOAD_DURATION, SET_UPLOAD_PROGRESS, RESET_UPLOAD_PROGRESS } from "./uiActionTypes"
 
 const initialState = {
     showFUSection: false,
+    uploadDuration: false,
+    uploadProgress: {
+        fileName: '',
+        uploadedPercentage: 0
+    },
+    finalUploadCancelAlert: false,
     error: {
         isError: false,
         errorMessage: '',
@@ -29,12 +35,40 @@ export default function uiReducer(state = initialState, action:any) {
                 ...state,
                 showFUSection: action.payload
             }
-
         case HIDE_FILE_UPLOAD_SECTION:
             return {
                 ...state,
                 showFUSection: action.payload
             }
+
+        case SET_UPLOAD_DURATION:
+            return {
+                ...state,
+                uploadDuration: true
+            }
+        case RESET_UPLOAD_DURATION:
+            return {
+                ...state,
+                uploadDuration: false
+            }
+
+        case SET_UPLOAD_PROGRESS:
+            return {
+                ...state,
+                uploadProgress: {
+                    fileName: action.payload.fileName,
+                    uploadedPercentage: action.payload.uploadedPercentage
+                }
+            }
+        case RESET_UPLOAD_PROGRESS:
+            return {
+                ...state,
+                uploadProgress: {
+                    fileName: '',
+                    uploadedPercentage: 0
+                }
+            }
+
         case SET_ERROR:
             return {
                 ...state,
@@ -45,7 +79,7 @@ export default function uiReducer(state = initialState, action:any) {
                     redirect: {
                         ...state.error.redirect,
                         shouldRedirect: action.payload.redirect.shouldRedirect,
-                        path: action.paylaod.redirect.path
+                        path: action.payload.redirect.path
                     }
                 }
             }      
@@ -61,6 +95,7 @@ export default function uiReducer(state = initialState, action:any) {
                     }
                 }
             } 
+
         case SET_SUCCESS:
             return {
                 ...state,
