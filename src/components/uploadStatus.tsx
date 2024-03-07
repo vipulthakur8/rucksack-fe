@@ -1,15 +1,15 @@
 import { connect } from "react-redux"
 import { resetFileUpload, resetUploadDuration, resetUploadProgress } from "../store/uiActions"
 import { resetFileUploaded } from "../store/userActions"
-// import { useEffect } from "react"
+import { useEffect } from "react"
 
 function UploadStatus(props:any) {
-    // useEffect(() => {
-    //     if (props.user.fileUploaded || props.ui.uploadProgress == 100 || props.ui.uploadDuration) {
-    //         props.onResetUploadDuration()
-    //         props.onResetUploadProgress()
-    //     }
-    // }, [props.user.fileUploaded,props.ui.uploadProgress, props.ui.uploadDuration])
+    useEffect(() => {
+        if (props.ui.error.iError) {
+            props.onResetUploadDuration()
+            props.onResetUploadProgress()
+        }
+    }, [props.ui.error.isError])
 
     const doneHandler = () => {
         props.onResetUploadDuration()

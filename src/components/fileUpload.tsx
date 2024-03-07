@@ -25,8 +25,14 @@ function FileUpload(props:any) {
     }
 
     const submitHandler = () => {
+        /* 
+            1 byte = 8bits
+            1 Kb = 1024 bytes
+            1 Mb = 1024*1024 bytes
+        */
+       
         console.log(file)
-        if (file && file.size >= 100*1024) {
+        if (file && file.size >= 100*1024*1024) {   
             return props.onSetError({
                 isError: true,
                 errorMessage: 'File size exceeded, only file size upto 100 MB is allowed',
