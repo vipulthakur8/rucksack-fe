@@ -25,9 +25,10 @@ export const fileUploadRequest = (value:any) => {
             let fd = new FormData();
             // fd.append('fileType', value.fileType);
             fd.append('file', value.file);
+            fd.append('id', value.id)
 
             console.log("file in fileUploadRequest", fd.get('file'));
-
+            console.log('id', fd.get('id'))
             // dispatch(setLoading())
             dispatch(setUploadDuration())
             let response = await axios.post(`${URL}/user/upload`, fd, {

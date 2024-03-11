@@ -43,6 +43,7 @@ function FileUpload(props:any) {
             })
         }
         return props.onFileUploadRequest({
+            id: props.auth.user.id,
             file
         })
     }
