@@ -8,11 +8,13 @@ import { Provider } from 'react-redux';
 import uiReducer from './store/uiReducer.ts';
 import authReducer from './store/authReducer.ts';
 import userReducer from './store/userReducer.ts';
+import genReducer from './store/genReducer.ts';
 
 const rootReducers = combineReducers({
   ui: uiReducer,
   auth: authReducer,
-  user: userReducer
+  user: userReducer,
+  gen: genReducer
 })
 
 const store = configureStore({

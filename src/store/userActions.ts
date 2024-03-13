@@ -55,7 +55,7 @@ export const fileUploadRequest = (value:any) => {
 
         } catch (error:any) {
             dispatch(resetLoading())
-            if (error.status === 403) {
+            if (error.status === 401) {     // 401 is not autherised status code
                 dispatch(setError({
                     isError: true,
                     errorMessage: 'Your session ended',

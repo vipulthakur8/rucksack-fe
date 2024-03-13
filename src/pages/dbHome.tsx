@@ -2,10 +2,19 @@
 // import Modal from "../components/modal";
 import { connect } from "react-redux"
 import { setFileUpload, resetFileUpload } from "../store/uiActions"
+import { fetchDashboardContent } from "../store/genActions"
+import { useEffect } from "react"
 
 function DbHome(props: any) {
 
     // const [showFileUpload, setShowFileUpload] = useState(true)
+
+    useEffect(() => {
+        if (!props.user.fileUploaded) {
+            props.onFetchDashboardContent({id: props.auth.user.id})
+        }
+    }, [props.user.fileUploaded])
+
 
     return(
         <div className="mx-[2rem] px-[1rem] font-inter">
@@ -31,16 +40,32 @@ function DbHome(props: any) {
             {/* <div className="divider my-[0]"></div> */}
             <div className="">
                 {
-                    false
+                    (props.gen.images.length > 0)
                     ?
                     <div>
+                        {
+                            props.gen.images.length > 0 
+                            &&
+                            <div>
+                                <p>Images</p>
+                                <div>
+                                    {
+                                        props.gen.images.map((item:any) => {
+                                            return <p key={item._id}>{item.image}</p>
+                                        })
+                                    }
+                                </div>
+                            </div>
+
+                        }
+                      
                     </div>
                     :
                     <div className="relative w-full h-[600px]">
-                    <div className="w-fit p-6 absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%]">
-                        <h1 className="text-center mb-[1.5rem] text-[18px] font-semibold">You don't have any file</h1>
-                        <button onClick={props.onSetFU} className="btn btn-lg bg-olive hover:bg-olive text-white block mx-auto">Upload file</button>
-                    </div>
+                        <div className="w-fit p-6 absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%]">
+                            <h1 className="text-center mb-[1.5rem] text-[18px] font-semibold">You don't have any file</h1>
+                            <button onClick={props.onSetFU} className="btn btn-lg bg-olive hover:bg-olive text-white block mx-auto">Upload file</button>
+                        </div>
                     </div>
                 }
             </div>
@@ -52,14 +77,17 @@ function DbHome(props: any) {
 const mapStateToProps = (state:any) => {
     return {
       ui: state.ui,
-      auth: state.auth
+      auth: state.auth,
+      user: state.user,
+      gen: state.gen
     }
   }
   
 const mapDispatchToProps = (dispatch:any) => {
     return {
       onSetFU: () => dispatch(setFileUpload()),
-      onResetFU: () => dispatch(resetFileUpload())
+      onResetFU: () => dispatch(resetFileUpload()),
+      onFetchDashboardContent: (value:Object) => dispatch(fetchDashboardContent(value))
     }
   }
   
