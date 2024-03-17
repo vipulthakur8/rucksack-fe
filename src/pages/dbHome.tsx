@@ -1,13 +1,22 @@
-// import { useState } from "react";
+import { useState } from "react";
 // import Modal from "../components/modal";
 import { connect } from "react-redux"
 import { setFileUpload, resetFileUpload } from "../store/uiActions"
 import { fetchDashboardContent } from "../store/genActions"
 import { useEffect } from "react"
 
+import { URL } from "../config/backend_info";
+
+import ImageViewer from "../components/imageViewer"
+import Modal from "../components/modal";
+import imageIcon from '../assets/imageIcon.svg';
+
 function DbHome(props: any) {
 
-    // const [showFileUpload, setShowFileUpload] = useState(true)
+    const [showImage, setShowImage] = useState({
+        show: false,
+        image: ''
+    })
 
     useEffect(() => {
         if (!props.user.fileUploaded) {
@@ -19,12 +28,19 @@ function DbHome(props: any) {
     return(
         <div className="mx-[2rem] px-[1rem] font-inter">
 
-            {/* {
-                showFileUpload
+            {
+                showImage.show
                 &&
                 <Modal />
-            } */}
+            }
 
+            {
+                showImage.show
+                &&
+                <ImageViewer userId={props.auth.user.id} image={showImage.image} hideHandler={() => setShowImage({show: false, image: ''})}/>
+
+            }
+            
             <div className="flex items-center justify-between">
                 <h1 className="md:my-[2rem] text-[18px] font-semibold">Dashboard</h1>
                 <div className="flex items-center justify-between md:w-1/3 my-[2rem]">
@@ -47,11 +63,18 @@ function DbHome(props: any) {
                             props.gen.images.length > 0 
                             &&
                             <div>
-                                <p>Images</p>
-                                <div>
+                                <p className="text-[1.5em] font-bold font-inter mt-[1rem]">Images</p>
+                                <div className="grid grid-cols-10 mt-[0.5rem]">
                                     {
                                         props.gen.images.map((item:any) => {
-                                            return <p key={item._id}>{item.image}</p>
+                                            // return <p key={item._id}>{item.image}</p>
+                                            // return <ImageViewer key={item._id} userId={props.auth.user.id} image={item.image} />]
+                                            return (
+                                            <div key={item._id} className="w-fit h-fit p-3 hover:cursor-pointer">
+                                                <img onClick={() => setShowImage({show: true, image: item.image})} src={imageIcon} className="w-[80px] block mx-auto" />
+                                                <p className="text-center mt-[0.5rem]">{item.image.split('+')[1]}</p>
+                                            </div>
+                                            )
                                         })
                                     }
                                 </div>

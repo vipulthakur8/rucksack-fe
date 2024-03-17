@@ -22,7 +22,12 @@ function DashboardSideNav() {
                 {/* <div className="my-[1.5rem] flex items-center gap-3 w-fit mx-auto">
                     <p className="text-center font-semibold">Hi, {'Vipul'}</p>
                 </div> */}
-                <ul className="mt-[2rem]">
+                <div className="w-fit mt-[2rem] mx-auto flex items-center">
+                    <button className="btn btn-sm w-[150px] bg-olive text-white font-semibold hover:bg-olive hover:text-white">
+                        + Upload file
+                    </button>
+                </div>
+                <ul className="mt-[1.5rem]">
                     <li className="w-[150px] p-2 mx-auto">
                         <Link className="md:w-[122px] block mx-auto flex items-center gap-3" to={'/dashboard'}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
