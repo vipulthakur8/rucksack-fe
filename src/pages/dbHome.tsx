@@ -10,6 +10,9 @@ import { URL } from "../config/backend_info";
 import ImageViewer from "../components/imageViewer"
 import Modal from "../components/modal";
 import imageIcon from '../assets/imageIcon.svg';
+import pdfFile from '../assets/pdf.svg';
+import videoFile from '../assets/video.svg';
+import otherFile from '../assets/otherFile.svg';
 
 function DbHome(props: any) {
 
@@ -59,16 +62,36 @@ function DbHome(props: any) {
                     (props.gen.images.length > 0)
                     ?
                     <div>
+                        {/* Document section */}
+                        {
+                            props.gen.documents.length > 0
+                            &&
+                            <div className="p-6 bg-white">
+                                <p className="text-[1.5em] font-bold font-inter mt-[0rem]">Documents</p>
+                                <div className="grid grid-cols-10 mt-[0.5rem]">
+                                    {
+                                        props.gen.documents.map((item:any) => {
+                                            return (
+                                                <div key={item._id} className="w-[120px] h-fit p-3 hover:cursor-pointer">
+                                                    <img className="w-[80px] block mx-auto" src={pdfFile} alt="document pdf file"/>
+                                                    <p className="text-center mt-[0.5rem] wrap">{item.appName.split('+')[1].slice(0,8)}...</p>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        }
+
+                        {/* Image section */}
                         {
                             props.gen.images.length > 0 
                             &&
-                            <div>
-                                <p className="text-[1.5em] font-bold font-inter mt-[1rem]">Images</p>
+                            <div className="p-6 bg-white mt-[2rem]">
+                                <p className="text-[1.5em] font-bold font-inter mt-[0rem]">Images</p>
                                 <div className="grid grid-cols-10 mt-[0.5rem]">
                                     {
                                         props.gen.images.map((item:any) => {
-                                            // return <p key={item._id}>{item.image}</p>
-                                            // return <ImageViewer key={item._id} userId={props.auth.user.id} image={item.image} />]
                                             return (
                                             <div key={item._id} className="w-fit h-fit p-3 hover:cursor-pointer">
                                                 <img onClick={() => setShowImage({show: true, image: item.image})} src={imageIcon} className="w-[80px] block mx-auto" />
@@ -78,6 +101,13 @@ function DbHome(props: any) {
                                         })
                                     }
                                 </div>
+                                {
+                                    props.gen.images.length >= 10 
+                                    &&
+                                    <div className="mt-[1rem]">
+                                        <button className="btn btn-sm">See more</button>
+                                    </div>
+                                }
                             </div>
 
                         }

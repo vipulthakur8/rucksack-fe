@@ -28,11 +28,11 @@ export const fetchDashboardContent = (value:Object) => {
                 // }
             })
             dispatch(resetLoading())
+            console.log("response", response.data)
 
-            if (response.status === 200) {
-                console.log("response", response.data)
+            if (response.status === 200) {  
                 dispatch(setFetchDashboardContent(response.data))
-                console.log("after setFecthDashboardconten dispatched");
+                // console.log("after setFecthDashboardconten dispatched");
             }
 
         } catch (error:any) {

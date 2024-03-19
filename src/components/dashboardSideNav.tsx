@@ -1,5 +1,8 @@
 
+import { connect } from "react-redux"
 import { Link } from "react-router-dom"
+
+import { setFileUpload, resetFileUpload } from "../store/uiActions"
 
 // const nav = [
 //     {
@@ -7,7 +10,7 @@ import { Link } from "react-router-dom"
 //     }
 // ]
 
-function DashboardSideNav() {
+function DashboardSideNav(props: any) {
     return(
         <div className="fixed lg:w-[300px] md:h-[100vh] font-inter">
             <nav className="w-full p-2">
@@ -23,7 +26,7 @@ function DashboardSideNav() {
                     <p className="text-center font-semibold">Hi, {'Vipul'}</p>
                 </div> */}
                 <div className="w-fit mt-[2rem] mx-auto flex items-center">
-                    <button className="btn btn-sm w-[150px] bg-olive text-white font-semibold hover:bg-olive hover:text-white">
+                    <button onClick={props.onSetFU} className="btn btn-sm w-[150px] bg-olive text-white font-semibold hover:bg-olive hover:text-white">
                         + Upload file
                     </button>
                 </div>
@@ -101,4 +104,11 @@ function DashboardSideNav() {
     )
 }
 
-export default DashboardSideNav
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        onSetFU: () => dispatch(setFileUpload()),
+        onResetFU: () => dispatch(resetFileUpload()),
+    }
+}
+
+export default connect(null, mapDispatchToProps)(DashboardSideNav);
