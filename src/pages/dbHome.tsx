@@ -5,7 +5,7 @@ import { setFileUpload, resetFileUpload } from "../store/uiActions"
 import { fetchDashboardContent } from "../store/genActions"
 import { useEffect } from "react"
 
-import { URL } from "../config/backend_info";
+// import { URL } from "../config/backend_info";
 
 import ImageViewer from "../components/imageViewer"
 import Modal from "../components/modal";
@@ -13,8 +13,13 @@ import imageIcon from '../assets/imageIcon.svg';
 import pdfFile from '../assets/pdf.svg';
 import videoFile from '../assets/video.svg';
 import otherFile from '../assets/otherFile.svg';
+import { useNavigate } from "react-router-dom";
+
+const LIMIT = 0;
 
 function DbHome(props: any) {
+
+    const navigate = useNavigate();
 
     const [showImage, setShowImage] = useState({
         show: false,
@@ -29,7 +34,7 @@ function DbHome(props: any) {
 
 
     return(
-        <div className="mx-[2rem] px-[1rem] font-inter">
+        <div className="mx-[2rem] px-[1rem] h-full font-inter bg-bg-olive">
 
             {
                 showImage.show
@@ -57,7 +62,7 @@ function DbHome(props: any) {
                 </div>
             </div>
             {/* <div className="divider my-[0]"></div> */}
-            <div className="">
+            <div className="h-fit">
                 {
                     (props.gen.images.length > 0)
                     ?
@@ -80,6 +85,13 @@ function DbHome(props: any) {
                                         })
                                     }
                                 </div>
+                                {
+                                    props.gen.images.length >= LIMIT 
+                                    &&
+                                    <div className="mt-[1rem]">
+                                        <button onClick={() => navigate('/dashboard/documents')} className="btn btn-sm">See more</button>
+                                    </div>
+                                }
                             </div>
                         }
 
@@ -102,14 +114,71 @@ function DbHome(props: any) {
                                     }
                                 </div>
                                 {
-                                    props.gen.images.length >= 10 
+                                    props.gen.images.length >= LIMIT 
                                     &&
                                     <div className="mt-[1rem]">
-                                        <button className="btn btn-sm">See more</button>
+                                        <button onClick={() => navigate('/dashboard/images')} className="btn btn-sm">See more</button>
                                     </div>
                                 }
                             </div>
 
+                        }
+
+                        {/* Video section */}
+                        {
+                            props.gen.videos.length > 0
+                            &&
+                            <div className="p-6 bg-white mt-[2rem]">
+                                <p className="text-[1.5em] font-bold font-inter mt-[0rem]">Videos</p>
+                                <div className="grid grid-cols-10 mt-[0.5rem]">
+                                    {
+                                        props.gen.videos.map((item:any) => {
+                                            return (
+                                                <div key={item._id} className="w-[120px] h-fit p-3 hover:cursor-pointer">
+                                                    <img className="w-[80px] block mx-auto" src={videoFile} alt="document pdf file"/>
+                                                    <p className="text-center mt-[0.5rem] wrap">{item.videoName.split('+')[1].slice(0,8)}...</p>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                {
+                                    props.gen.images.length >= LIMIT 
+                                    &&
+                                    <div className="mt-[1rem]">
+                                        <button onClick={() => navigate('/dashboard/videos')} className="btn btn-sm">See more</button>
+                                    </div>
+                                }
+                            </div>
+                        }
+
+
+                        {/* Others Files section */}
+                        {
+                            props.gen.others.length > 0
+                            &&
+                            <div className="p-6 bg-white my-[2rem]">
+                                <p className="text-[1.5em] font-bold font-inter mt-[0rem]">Other Files</p>
+                                <div className="grid grid-cols-10 mt-[0.5rem]">
+                                    {
+                                        props.gen.others.map((item:any) => {
+                                            return (
+                                                <div key={item._id} className="w-[120px] h-fit p-3 hover:cursor-pointer">
+                                                    <img className="w-[80px] block mx-auto" src={otherFile} alt="document pdf file"/>
+                                                    <p className="text-center mt-[0.5rem] wrap">{item.otherName ? item.otherName.split('+')[1].slice(0,8) : item.appName.split('+')[1].slice(0,8)}...</p>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                {
+                                    props.gen.images.length >= LIMIT 
+                                    &&
+                                    <div className="mt-[1rem]">
+                                        <button onClick={() => navigate('/dashboard/others')} className="btn btn-sm">See more</button>
+                                    </div>
+                                }
+                            </div>
                         }
                       
                     </div>
@@ -121,6 +190,9 @@ function DbHome(props: any) {
                         </div>
                     </div>
                 }
+            </div>
+            <div className="w-full h-[50px] bg-bg-olive">
+
             </div>
         </div>
     )

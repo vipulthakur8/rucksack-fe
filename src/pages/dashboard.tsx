@@ -27,7 +27,7 @@ function Dashboard(props:any) {
             <DashboardSideNav />
 
             {/* main section */}
-            <div className="ml-[300px] bg-bg-olive h-[100vh]">
+            <div className="ml-[300px] bg-bg-olive">
                 <Outlet />
             </div>
         </div>
