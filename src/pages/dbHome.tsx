@@ -1,11 +1,11 @@
 import { useState } from "react";
 // import Modal from "../components/modal";
 import { connect } from "react-redux"
-import { setFileUpload, resetFileUpload } from "../store/uiActions"
+import { setFileUpload, resetFileUpload, setShowPdfReader, setShowVideoPlayer } from "../store/uiActions"
 import { fetchDashboardContent } from "../store/genActions"
 import { useEffect } from "react"
 
-// import { URL } from "../config/backend_info";
+import { URL } from "../config/backend_info";
 
 import ImageViewer from "../components/imageViewer"
 import Modal from "../components/modal";
@@ -78,7 +78,7 @@ function DbHome(props: any) {
                                         props.gen.documents.map((item:any) => {
                                             return (
                                                 <div key={item._id} className="w-[120px] h-fit p-3 hover:cursor-pointer">
-                                                    <img className="w-[80px] block mx-auto" src={pdfFile} alt="document pdf file"/>
+                                                    <img onClick={() => props.onSetShowPdfReader({show:true, url: `${URL}/gen/user/document/${item.appName}`})} className="w-[80px] block mx-auto" src={pdfFile} alt="document pdf file"/>
                                                     <p className="text-center mt-[0.5rem] wrap">{item.appName.split('+')[1].slice(0,8)}...</p>
                                                 </div>
                                             )
@@ -135,7 +135,7 @@ function DbHome(props: any) {
                                         props.gen.videos.map((item:any) => {
                                             return (
                                                 <div key={item._id} className="w-[120px] h-fit p-3 hover:cursor-pointer">
-                                                    <img className="w-[80px] block mx-auto" src={videoFile} alt="document pdf file"/>
+                                                    <img onClick={() => props.onSetShowVideoPlayer({show: true, url: `${URL}/gen/user/videos/${item.videoName}`})} className="w-[80px] block mx-auto" src={videoFile} alt="document pdf file"/>
                                                     <p className="text-center mt-[0.5rem] wrap">{item.videoName.split('+')[1].slice(0,8)}...</p>
                                                 </div>
                                             )
@@ -212,7 +212,10 @@ const mapDispatchToProps = (dispatch:any) => {
     return {
       onSetFU: () => dispatch(setFileUpload()),
       onResetFU: () => dispatch(resetFileUpload()),
-      onFetchDashboardContent: (value:Object) => dispatch(fetchDashboardContent(value))
+      onFetchDashboardContent: (value:Object) => dispatch(fetchDashboardContent(value)),
+      onSetShowPdfReader: (value: object) => dispatch(setShowPdfReader(value)),
+      onSetShowVideoPlayer: (value:object) => dispatch(setShowVideoPlayer(value))
+    //   onSetShowImageViewer: (value:object) => dispatch()
     }
   }
   

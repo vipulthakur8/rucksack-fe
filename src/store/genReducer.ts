@@ -1,10 +1,15 @@
-import { CLEAR_DASHBOARD_CONTENT, FETCH_DASHBOARD_CONTENT } from "./genActionsTypes";
+import { CLEAR_DASHBOARD_CONTENT, FETCH_DASHBOARD_CONTENT, RESET_ALL_USER_IMAGES, SET_ALL_USER_IMAGES } from "./genActionsTypes";
 
 const initialState = {
     images: [],
     videos: [],
     documents: [],
-    others: []
+    others: [],
+    allUserImages: [],
+    imageViewer: {
+        show: false,
+        image: ''
+    }
 }
 
 export default function genReducer(state = initialState, action:any) {
@@ -24,7 +29,18 @@ export default function genReducer(state = initialState, action:any) {
                 images: [],
                 videos: [],
                 documents: [],
-                others: []
+                others: [],
+                allUserImages: []
+            }
+        case SET_ALL_USER_IMAGES:
+            return {
+                ...state,
+                allUserImages: action.payload
+            }
+        case RESET_ALL_USER_IMAGES:
+            return {
+                ...state,
+                allUserImages: []
             }
         default:
             return state;

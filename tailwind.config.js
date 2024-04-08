@@ -16,7 +16,7 @@ export default {
       'olive': '#373e02',
       'bg-olive': '#e7ecd4',
       'red': '#ff0000',
-      'modal': 'rgba(0,0,0,0.6)',
+      'modal': 'rgba(0,0,0,0.8)',
       'green': '#0f0'
     }
   },

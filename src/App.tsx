@@ -17,6 +17,10 @@ import FileUpload from './components/fileUpload.tsx';
 import MessageBox from './components/messageBox.tsx';
 import Loading from './components/loading.tsx';
 import Logout from './pages/logout.tsx';
+import DbDocument from './pages/dbDocument.tsx';
+import DbVideo from './pages/dbVideo.tsx';
+import DbImage from './pages/dbImage.tsx';
+import DbOther from './pages/dbOther.tsx';
 
 function App(props: any) {
 
@@ -92,6 +96,10 @@ function App(props: any) {
         <Route element={<ProtectedRoute toll={true} redirectTo={'/'} />}>
           <Route path='/dashboard' element={<Dashboard />} >
             <Route index element={<DbHome />} />
+            <Route path='documents' element={<DbDocument />} />
+            <Route path='videos' element={<DbVideo />} />
+            <Route path='images' element={<DbImage />} />
+            <Route path='others' element={<DbOther />} />
           </Route>
         </Route>
 

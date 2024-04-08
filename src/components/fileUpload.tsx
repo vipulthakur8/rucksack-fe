@@ -73,7 +73,7 @@ function FileUpload(props:any) {
                     {
                         file
                         &&
-                        <img src={URL.createObjectURL(file)} className="block mx-auto"/>
+                        <img src={URL.createObjectURL(file)} className="block w-[300px] h-fit mx-auto"/>
                     }
                 </div>
             }

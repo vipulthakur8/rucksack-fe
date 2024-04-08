@@ -4,7 +4,7 @@ import { URL } from "../config/backend_info"
 export default function ImageViewer({userId, image, hideHandler}) {
     // console.log(`${image} in ImageViewer`, URL)
     return (
-        <div className="fixed bg-white p-3 z-[500] w-[800px] top-[50%] left-[50%] tranform -translate-x-[50%] -translate-y-[50%]">
+        <div className="fixed bg-white p-3 z-[500] md:w-2/3 md:h-2/3 top-[50%] left-[50%] tranform -translate-x-[50%] -translate-y-[50%]">
             <div className="flex items-center justify-between">
                 <div>
 
@@ -18,7 +18,7 @@ export default function ImageViewer({userId, image, hideHandler}) {
           
             <div className="mt-[1rem] px-3 pb-3">
                 <img 
-                className="block mx-auto"
+                className="block mx-auto w-[750px] h-[500px]"
                 // top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%]" 
                 src={`${URL}/gen/user/images/${userId}/${image}`} 
                 alt="image" />

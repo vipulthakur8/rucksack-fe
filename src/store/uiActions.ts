@@ -1,5 +1,5 @@
 
-import { SET_UPLOAD_DURATION, RESET_UPLOAD_DURATION ,SHOW_FILE_UPLOAD_SECTION, HIDE_FILE_UPLOAD_SECTION, SET_ERROR, RESET_ERROR, SET_SUCCESS, RESET_SUCCESS, SET_LOADING, RESET_LOADING, SET_UPLOAD_PROGRESS, RESET_UPLOAD_PROGRESS } from "./uiActionTypes"
+import { SET_UPLOAD_DURATION, RESET_UPLOAD_DURATION ,SHOW_FILE_UPLOAD_SECTION, HIDE_FILE_UPLOAD_SECTION, SET_ERROR, RESET_ERROR, SET_SUCCESS, RESET_SUCCESS, SET_LOADING, RESET_LOADING, SET_UPLOAD_PROGRESS, RESET_UPLOAD_PROGRESS, SHOW_PDF_READER, HIDE_PDF_READER, SHOW_VIDEO_STREAMER, HIDE_VIDEO_STREAMER, SET_SHOW_IMAGE_VIEWER, RESET_SHOW_IMAGE_VIEWER } from "./uiActionTypes"
 
 /* setting and resetting of file upload section */
 export const setFileUpload = () => {
@@ -79,5 +79,48 @@ export const setUploadProgress = (value:Object) => {
 export const resetUploadProgress = () => {
     return {
         type: RESET_UPLOAD_PROGRESS
+    }
+}
+
+/* show and hide pdf reader */
+export const setShowPdfReader = (value: Object) => {
+    return {
+        type: SHOW_PDF_READER,
+        payload: value
+    }
+}
+
+export const resetShowPdfReader = () => {
+    return {
+        type: HIDE_PDF_READER
+    }
+}
+
+/* show and hide the video player */
+export const setShowVideoPlayer = (value:object) => {
+    return {
+        type: SHOW_VIDEO_STREAMER,
+        payload: value
+    }
+}
+
+export const resetShowVideoPlayer = () => {
+    return {
+        type: HIDE_VIDEO_STREAMER
+    }
+}
+
+
+/* set and reset show image viewer */
+export const setShowImageViewer = (value: any) => {
+    return {
+        type: SET_SHOW_IMAGE_VIEWER,
+        payload: value
+    }
+}
+
+export const resetShowImageViewer = () => {
+    return {
+        type: RESET_SHOW_IMAGE_VIEWER
     }
 }
