@@ -1,7 +1,7 @@
 import { useState } from "react";
 // import Modal from "../components/modal";
 import { connect } from "react-redux"
-import { setFileUpload, resetFileUpload, setShowPdfReader, setShowVideoPlayer } from "../store/uiActions"
+import { setFileUpload, resetFileUpload, setShowPdfReader, setShowVideoPlayer, setShowImageViewer } from "../store/uiActions"
 import { fetchDashboardContent } from "../store/genActions"
 import { useEffect } from "react"
 
@@ -9,7 +9,7 @@ import { URL } from "../config/backend_info";
 
 import ImageViewer from "../components/imageViewer"
 import Modal from "../components/modal";
-import imageIcon from '../assets/imageIcon.svg';
+// import imageIcon from '../assets/imageIcon.svg';
 import pdfFile from '../assets/pdf.svg';
 import videoFile from '../assets/video.svg';
 import otherFile from '../assets/otherFile.svg';
@@ -86,7 +86,7 @@ function DbHome(props: any) {
                                     }
                                 </div>
                                 {
-                                    props.gen.images.length >= LIMIT 
+                                    props.gen.documents.length >= LIMIT 
                                     &&
                                     <div className="mt-[1rem]">
                                         <button onClick={() => navigate('/dashboard/documents')} className="btn btn-sm">See more</button>
@@ -106,8 +106,12 @@ function DbHome(props: any) {
                                         props.gen.images.map((item:any) => {
                                             return (
                                             <div key={item._id} className="w-fit h-fit p-3 hover:cursor-pointer">
-                                                <img onClick={() => setShowImage({show: true, image: item.image})} src={imageIcon} className="w-[80px] block mx-auto" />
-                                                <p className="text-center mt-[0.5rem]">{item.image.split('+')[1]}</p>
+                                                <img 
+                                                onClick={() => props.onSetShowImageViewer({show: true, image: item.image})}
+                                                src={`${URL}/gen/user/images/${props.auth.user.id}/${item.image}`} 
+                                                className="w-[80px] h-[80px] block mx-auto" 
+                                                />
+                                                <p className="text-center mt-[0.5rem]">{item.image.split('+')[0]}</p>
                                             </div>
                                             )
                                         })
@@ -154,7 +158,7 @@ function DbHome(props: any) {
 
 
                         {/* Others Files section */}
-                        {
+                        {/* {
                             props.gen.others.length > 0
                             &&
                             <div className="p-6 bg-white my-[2rem]">
@@ -179,7 +183,7 @@ function DbHome(props: any) {
                                     </div>
                                 }
                             </div>
-                        }
+                        } */}
                       
                     </div>
                     :
@@ -214,8 +218,8 @@ const mapDispatchToProps = (dispatch:any) => {
       onResetFU: () => dispatch(resetFileUpload()),
       onFetchDashboardContent: (value:Object) => dispatch(fetchDashboardContent(value)),
       onSetShowPdfReader: (value: object) => dispatch(setShowPdfReader(value)),
-      onSetShowVideoPlayer: (value:object) => dispatch(setShowVideoPlayer(value))
-    //   onSetShowImageViewer: (value:object) => dispatch()
+      onSetShowVideoPlayer: (value:object) => dispatch(setShowVideoPlayer(value)),
+      onSetShowImageViewer: (value:object) => dispatch(setShowImageViewer(value))
     }
   }
   

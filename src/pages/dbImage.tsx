@@ -24,10 +24,10 @@ function DbImage(props: any) {
                     {
                         props.gen.allUserImages.length > 0 
                         ?
-                        <div className="p-3">
-                            <div className="grid grid-cols-10 mt-[0.5rem]">
+                        <div className="py-3 px-[1.5rem] ">
+                            <div className="grid grid-cols-9 gap-10 mt-[0.5rem]">
                                 {
-                                    props.gen.images.map((item:any) => {
+                                    props.gen.allUserImages.map((item:any) => {
                                         return (
                                         <div key={item._id} className="bg-white w-fit h-fit p-3 hover:cursor-pointer">
                                             <img 
