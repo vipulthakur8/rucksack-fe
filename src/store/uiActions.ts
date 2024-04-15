@@ -1,5 +1,5 @@
 
-import { SET_UPLOAD_DURATION, RESET_UPLOAD_DURATION ,SHOW_FILE_UPLOAD_SECTION, HIDE_FILE_UPLOAD_SECTION, SET_ERROR, RESET_ERROR, SET_SUCCESS, RESET_SUCCESS, SET_LOADING, RESET_LOADING, SET_UPLOAD_PROGRESS, RESET_UPLOAD_PROGRESS, SHOW_PDF_READER, HIDE_PDF_READER, SHOW_VIDEO_STREAMER, HIDE_VIDEO_STREAMER, SET_SHOW_IMAGE_VIEWER, RESET_SHOW_IMAGE_VIEWER } from "./uiActionTypes"
+import { SET_UPLOAD_DURATION, RESET_UPLOAD_DURATION ,SHOW_FILE_UPLOAD_SECTION, HIDE_FILE_UPLOAD_SECTION, SET_ERROR, RESET_ERROR, SET_SUCCESS, RESET_SUCCESS, SET_LOADING, RESET_LOADING, SET_UPLOAD_PROGRESS, RESET_UPLOAD_PROGRESS, SHOW_PDF_READER, HIDE_PDF_READER, SHOW_VIDEO_STREAMER, HIDE_VIDEO_STREAMER, SET_SHOW_IMAGE_VIEWER, RESET_SHOW_IMAGE_VIEWER, SET_SHOW_MOBILE_NAV, RESET_SHOW_MOBILE_NAV } from "./uiActionTypes"
 
 /* setting and resetting of file upload section */
 export const setFileUpload = () => {
@@ -122,5 +122,18 @@ export const setShowImageViewer = (value: any) => {
 export const resetShowImageViewer = () => {
     return {
         type: RESET_SHOW_IMAGE_VIEWER
+    }
+}
+
+/* set and reset show mobile nav */
+export const setShowMobileNav = () => {
+    return {
+        type: SET_SHOW_MOBILE_NAV
+    }
+}
+
+export const resetShowMobileNav = () => {
+    return {
+        type: RESET_SHOW_MOBILE_NAV
     }
 }

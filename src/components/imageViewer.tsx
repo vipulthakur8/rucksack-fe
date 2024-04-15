@@ -4,7 +4,7 @@ import { URL } from "../config/backend_info"
 export default function ImageViewer({userId, image, hideHandler}) {
     // console.log(`${image} in ImageViewer`, URL)
     return (
-        <div className="fixed bg-white p-3 z-[500] md:w-2/3 md:h-2/3 top-[50%] left-[50%] tranform -translate-x-[50%] -translate-y-[50%]">
+        <div className="fixed bg-white p-3 z-[720] w-full md:w-2/3 h-[2/3] md:h-2/3 top-[50%] left-[50%] tranform -translate-x-[50%] -translate-y-[50%]">
             <div className="flex items-center justify-between">
                 <div>
 

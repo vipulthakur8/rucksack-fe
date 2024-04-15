@@ -1,5 +1,6 @@
 
-import { SHOW_FILE_UPLOAD_SECTION, HIDE_FILE_UPLOAD_SECTION, SET_ERROR, RESET_ERROR, SET_SUCCESS, RESET_SUCCESS, SET_LOADING, RESET_LOADING, SET_UPLOAD_DURATION, RESET_UPLOAD_DURATION, SET_UPLOAD_PROGRESS, RESET_UPLOAD_PROGRESS, SHOW_PDF_READER, HIDE_PDF_READER, SHOW_VIDEO_STREAMER, HIDE_VIDEO_STREAMER, SET_SHOW_IMAGE_VIEWER, RESET_SHOW_IMAGE_VIEWER } from "./uiActionTypes"
+// import mobileNav from "../components/mobileNav"
+import { SHOW_FILE_UPLOAD_SECTION, HIDE_FILE_UPLOAD_SECTION, SET_ERROR, RESET_ERROR, SET_SUCCESS, RESET_SUCCESS, SET_LOADING, RESET_LOADING, SET_UPLOAD_DURATION, RESET_UPLOAD_DURATION, SET_UPLOAD_PROGRESS, RESET_UPLOAD_PROGRESS, SHOW_PDF_READER, HIDE_PDF_READER, SHOW_VIDEO_STREAMER, HIDE_VIDEO_STREAMER, SET_SHOW_IMAGE_VIEWER, RESET_SHOW_IMAGE_VIEWER, SET_SHOW_MOBILE_NAV, RESET_SHOW_MOBILE_NAV } from "./uiActionTypes"
 
 const initialState = {
     showFUSection: false,
@@ -37,7 +38,8 @@ const initialState = {
     showImageViewer: {
         show: false,
         image: ''
-    }
+    },
+    mobileNav: false
 }
 
 export default function uiReducer(state = initialState, action:any) {
@@ -199,6 +201,16 @@ export default function uiReducer(state = initialState, action:any) {
                     show: false,
                     image: ''
                 }
+            }
+        case SET_SHOW_MOBILE_NAV:
+            return {
+                ...state,
+                mobileNav: true
+            }
+        case RESET_SHOW_MOBILE_NAV:
+            return {
+                ...state,
+                mobileNav: false
             }
         default:
             return state

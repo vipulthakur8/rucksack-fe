@@ -1,18 +1,18 @@
-import { useState } from "react";
+// import { useState } from "react";
 // import Modal from "../components/modal";
 import { connect } from "react-redux"
-import { setFileUpload, resetFileUpload, setShowPdfReader, setShowVideoPlayer, setShowImageViewer } from "../store/uiActions"
+import { setFileUpload, resetFileUpload, setShowPdfReader, setShowVideoPlayer, setShowImageViewer, resetShowMobileNav } from "../store/uiActions"
 import { fetchDashboardContent } from "../store/genActions"
 import { useEffect } from "react"
 
 import { URL } from "../config/backend_info";
 
-import ImageViewer from "../components/imageViewer"
-import Modal from "../components/modal";
+// import ImageViewer from "../components/imageViewer"
+// import Modal from "../components/modal";
 // import imageIcon from '../assets/imageIcon.svg';
 import pdfFile from '../assets/pdf.svg';
 import videoFile from '../assets/video.svg';
-import otherFile from '../assets/otherFile.svg';
+// import otherFile from '../assets/otherFile.svg';
 import { useNavigate } from "react-router-dom";
 
 const LIMIT = 0;
@@ -21,10 +21,9 @@ function DbHome(props: any) {
 
     const navigate = useNavigate();
 
-    const [showImage, setShowImage] = useState({
-        show: false,
-        image: ''
-    })
+    useEffect(() => {
+        props.onResetShowMobileNav()
+    }, [])
 
     useEffect(() => {
         if (!props.user.fileUploaded) {
@@ -34,7 +33,7 @@ function DbHome(props: any) {
 
 
     return(
-        <div className="md:mx-[2rem] px-[1rem] h-full font-inter bg-bg-olive">
+        <div className="md:mx-[2rem] mt-[10%] md:mt-[0%] px-[1rem] h-full font-inter bg-bg-olive">
 
             {/* {
                 showImage.show
@@ -50,14 +49,14 @@ function DbHome(props: any) {
             } */}
             
             <div className="flex items-center justify-between">
-                <h1 className="my-[1rem] md:my-[2rem] text-[18px] font-semibold">Dashboard</h1>
+                <h1 className="mt-[2.5rem] mb-[1rem] md:my-[2rem] text-[18px] font-semibold">Dashboard</h1>
                 <div className="flex items-center justify-between md:w-1/3 my-[2rem]">
                     <input type="text" placeholder="Search" className="input hidden md:block input-bordered w-full max-w-xs" />
-                    <div className="md:w-1/4 flex items-center justify-between">
+                    <div className="md:w-1/4 hidden md:block flex items-center justify-between">
                         <p>Hi, {props.auth.user.firstName ? props.auth.user.firstName.toUpperCase() : 'User'}</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-9 h-9">
+                        {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-9 h-9">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        </svg>
+                        </svg> */}
                     </div>
                 </div>
             </div>
@@ -219,7 +218,8 @@ const mapDispatchToProps = (dispatch:any) => {
       onFetchDashboardContent: (value:Object) => dispatch(fetchDashboardContent(value)),
       onSetShowPdfReader: (value: object) => dispatch(setShowPdfReader(value)),
       onSetShowVideoPlayer: (value:object) => dispatch(setShowVideoPlayer(value)),
-      onSetShowImageViewer: (value:object) => dispatch(setShowImageViewer(value))
+      onSetShowImageViewer: (value:object) => dispatch(setShowImageViewer(value)),
+      onResetShowMobileNav: () => dispatch(resetShowMobileNav())
     }
   }
   

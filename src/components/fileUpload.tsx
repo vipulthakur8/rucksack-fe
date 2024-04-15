@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { fileUploadRequest } from "../store/userActions";
-import { setError } from "../store/uiActions";
+import { resetShowMobileNav, setError } from "../store/uiActions";
 
 
 function FileUpload(props:any) {
 
     // const [loading, setLoading] = useState(false)
     const [file, setFile] = useState<Blob>();
+
+    useEffect(() => {
+        props.onResetShowMobileNav()
+    }, [])
 
     useEffect(() => {
 
@@ -50,7 +54,7 @@ function FileUpload(props:any) {
 
     // console.log("[File in fileupload]", file)
     return (
-        <div className="font-inter bg-white z-[250] lg:w-[600px]  p-2 fixed top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%]">
+        <div className="font-inter bg-white z-[580] w-[95%] lg:w-[600px]  p-2 fixed top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%]">
             <div className="flex items-center justify-between p-2">
                 <div>
 
@@ -116,7 +120,8 @@ const mapStateToProps = (state:any) => {
 const mapDispatchToProps = (dispatch:any) => {
     return {
         onFileUploadRequest: (value:Object) => dispatch(fileUploadRequest(value)),
-        onSetError: (value:Object) => dispatch(setError(value))
+        onSetError: (value:Object) => dispatch(setError(value)),
+        onResetShowMobileNav: ()=>dispatch(resetShowMobileNav())
     }
 }
 

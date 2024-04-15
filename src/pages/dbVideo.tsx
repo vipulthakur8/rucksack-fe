@@ -2,27 +2,26 @@
 import { connect } from "react-redux"
 import { fetchAllUserVideos } from "../store/genActions"
 import { useEffect } from "react"
-import { setShowVideoPlayer } from "../store/uiActions"
+import { resetShowMobileNav, setShowVideoPlayer } from "../store/uiActions"
 import videoFile from '../assets/video.svg';
 import { URL } from "../config/backend_info";
 
 function DbVideo(props: any) {
 
     useEffect(() => {
-        console.log("before fetching videos in useEffect")
+        props.onResetShowMobileNav()
         props.onFetchAllVideos(props.auth.user.id);
-        console.log("after fetching videos in useEffect")
     }, [])
 
     return (
-        <div className="p-3 w-full h-[100vh]">
+        <div className="p-3 w-full h-[100vh] mt-[10%] md:mt-[0%]">
             <div className="md:pt-[2rem]">
-                <h1 className="md:py-1 md:px-6 font-inter text-[22px] md:text-[30px] font-bold">
+                <h1 className="pt-4 px-2 md:py-1 md:px-6 font-inter text-[22px] md:text-[30px] font-bold">
                     Videos
                 </h1>
             </div>
-            <div className="mt-[0.5rem]">
-                    <div className="grid grid-cols-3 gap-4 md:gap-10 md:grid-cols-10 mt-[0.5rem]">
+            <div className="mt-[0] md:mt-[0.5rem]">
+                    <div className="grid grid-cols-3 gap-4 md:gap-10 md:grid-cols-10 mt-[0] md:mt-[0.5rem]">
                         {                                    
                                         props.gen.allUserVideos.map((item:any) => {
                                             return (
@@ -53,7 +52,8 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
     return {
         onFetchAllVideos: (value: string) => dispatch(fetchAllUserVideos(value)),
-        onSetShowVideoPlayer: (value: object) => dispatch(setShowVideoPlayer(value))
+        onSetShowVideoPlayer: (value: object) => dispatch(setShowVideoPlayer(value)),
+        onResetShowMobileNav: () => dispatch(resetShowMobileNav())
     }
 }
 

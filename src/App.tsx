@@ -31,23 +31,34 @@ function App(props: any) {
     <BrowserRouter>
 
       {
-        (props.ui.error.isError || props.ui.success.isSuccess) && <Modal />
+        (props.ui.error.isError || props.ui.success.isSuccess || props.ui.showFUSection) && <Modal />
       }
 
       {
         props.ui.showFUSection 
         && 
-        <div className='fixed z-[380] w-full h-full bg-modal'>
-        <motion.div
-        initial={{ y: 200, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: 200, opacity: 0 }} 
-        transition={{ duration: 0.5 }} 
-        className='absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%] z-[400]'
+        // <div className='fixed z-[380] w-full h-full bg-modal'>
+        // <motion.div
+        // initial={{ y: 200, opacity: 0 }}
+        // animate={{ y: 0, opacity: 1 }}
+        // exit={{ y: 200, opacity: 0 }} 
+        // transition={{ duration: 0.5 }} 
+        // className='absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%] z-[400]'
+        // >
+        //   <FileUpload closeSection={props.onResetFU} />
+        // </motion.div>
+        // </div>
+
+        <div
+        className='fixed z-[690] w-full h-full'
         >
-          <FileUpload closeSection={props.onResetFU} />
-        </motion.div>
+            <div
+            className='absolute w-full top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%] z-[700]'
+            >
+              <FileUpload closeSection={props.onResetFU} />
+            </div>
         </div>
+     
         // <FileUpload closeSection={props.onResetFU} />
 
       }

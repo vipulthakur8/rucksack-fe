@@ -3,7 +3,7 @@ import { fetchAllImages } from "../store/genActions";
 import { useEffect } from "react";
 
 import { URL } from "../config/backend_info";
-import { setShowImageViewer } from "../store/uiActions";
+import { resetShowMobileNav, setShowImageViewer } from "../store/uiActions";
 
 function DbImage(props: any) {
     useEffect(() => {
@@ -12,10 +12,17 @@ function DbImage(props: any) {
         }
     }, [props.user.fileUploaded])
 
+    useEffect(() => {
+        // if (props.ui.mobileNav) {
+        // }
+        props.onResetShowMobileNav()
+
+    }, [])
+    
     return (
-        <div className="w-full h-[100vh]">
-            <div className="md:pt-[2rem] md:pt-[0.5rem]">
-                <h1 className="p-3 md:py-1 md:px-6 font-inter text-[22px] md:text-[30px] font-bold">
+        <div className="w-full h-[100vh] mt-[10%] md:mt-[0%]">
+            <div className="md:pt-[2rem] mt-[3.5rem] md:mt-[0rem] md:pt-[0.5rem]">
+                <h1 className="p-3 md:px-6 font-inter text-[22px] md:text-[30px] font-bold">
                     Images
                 </h1>
             </div>
@@ -23,7 +30,7 @@ function DbImage(props: any) {
                     {
                         props.gen.allUserImages.length > 0 
                         ?
-                        <div className="py-1 md:py-3 px-[1.5rem] ">
+                        <div className="py-0 md:py-3 px-[1.5rem] ">
                             <div className="grid grid-cols-3 md:grid-cols-9 gap-4 md:gap-10 mt-[0.5rem]">
                                 {
                                     props.gen.allUserImages.map((item:any) => {
@@ -64,7 +71,8 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
     return {
         onFetchAllImages: (value: string) => dispatch(fetchAllImages(value)),
-        onSetShowImageViewer: (value: any) => dispatch(setShowImageViewer(value))
+        onSetShowImageViewer: (value: any) => dispatch(setShowImageViewer(value)),
+        onResetShowMobileNav: () => dispatch(resetShowMobileNav())
     }
 }
 
