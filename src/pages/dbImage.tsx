@@ -15,27 +15,26 @@ function DbImage(props: any) {
     return (
         <div className="w-full h-[100vh]">
             <div className="md:pt-[2rem] md:pt-[0.5rem]">
-                <h1 className="md:py-1 md:px-6 font-inter text-[30px] font-bold">
+                <h1 className="p-3 md:py-1 md:px-6 font-inter text-[22px] md:text-[30px] font-bold">
                     Images
                 </h1>
             </div>
-            {/* onClick={() => setShowImage({show: true, image: item.image})} */}
             <div className="h-fit w-full">
                     {
                         props.gen.allUserImages.length > 0 
                         ?
-                        <div className="py-3 px-[1.5rem] ">
-                            <div className="grid grid-cols-9 gap-10 mt-[0.5rem]">
+                        <div className="py-1 md:py-3 px-[1.5rem] ">
+                            <div className="grid grid-cols-3 md:grid-cols-9 gap-4 md:gap-10 mt-[0.5rem]">
                                 {
                                     props.gen.allUserImages.map((item:any) => {
                                         return (
-                                        <div key={item._id} className="bg-white w-fit h-fit p-3 hover:cursor-pointer">
+                                        <div key={item._id} className="bg-white w-[90px] md:w-fit h-fit p-3 hover:cursor-pointer">
                                             <img 
                                             src={`${URL}/gen/user/images/${props.auth.user.id}/${item.image}`} 
                                             onClick={() => props.onSetShowImageViewer({show: true, image: `${item.image}`})}
-                                            className="w-[80px] h-[80px] block mx-auto" 
+                                            className="w-[40px] md:w-[80px] h-[40px] md:h-[80px] block mx-auto" 
                                             />
-                                            <p className="text-center mt-[0.5rem]">{item.image.split('+')[0]}</p>
+                                            <p className="text-center text-[0.5em] md:text-[1em] mt-[0.5rem]">{item.image.split('+')[0]}</p>
                                         </div>
                                         )
                                     })

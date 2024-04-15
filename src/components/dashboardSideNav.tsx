@@ -12,7 +12,7 @@ import { setFileUpload, resetFileUpload } from "../store/uiActions"
 
 function DashboardSideNav(props: any) {
     return(
-        <div className="fixed lg:w-[300px] md:h-[100vh] font-inter">
+        <div className="fixed hidden md:block lg:w-[300px] md:h-[100vh] font-inter">
             <nav className="w-full p-2">
                 <div className="w-fit mt-[2rem] mx-auto flex items-center">
                     <img src="/Backpack_icon.svg" alt="rucksack icon" className="h-[20px] w-[20px] md:h-[35px] md:w-[35px] mr-[0.5rem] md:mr-[1rem] " />

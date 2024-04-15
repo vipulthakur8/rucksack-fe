@@ -34,9 +34,9 @@ function DbHome(props: any) {
 
 
     return(
-        <div className="mx-[2rem] px-[1rem] h-full font-inter bg-bg-olive">
+        <div className="md:mx-[2rem] px-[1rem] h-full font-inter bg-bg-olive">
 
-            {
+            {/* {
                 showImage.show
                 &&
                 <Modal />
@@ -47,12 +47,12 @@ function DbHome(props: any) {
                 &&
                 <ImageViewer userId={props.auth.user.id} image={showImage.image} hideHandler={() => setShowImage({show: false, image: ''})}/>
 
-            }
+            } */}
             
             <div className="flex items-center justify-between">
-                <h1 className="md:my-[2rem] text-[18px] font-semibold">Dashboard</h1>
+                <h1 className="my-[1rem] md:my-[2rem] text-[18px] font-semibold">Dashboard</h1>
                 <div className="flex items-center justify-between md:w-1/3 my-[2rem]">
-                    <input type="text" placeholder="Search" className="input input-bordered w-full max-w-xs" />
+                    <input type="text" placeholder="Search" className="input hidden md:block input-bordered w-full max-w-xs" />
                     <div className="md:w-1/4 flex items-center justify-between">
                         <p>Hi, {props.auth.user.firstName ? props.auth.user.firstName.toUpperCase() : 'User'}</p>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-9 h-9">
@@ -71,15 +71,15 @@ function DbHome(props: any) {
                         {
                             props.gen.documents.length > 0
                             &&
-                            <div className="p-6 bg-white">
-                                <p className="text-[1.5em] font-bold font-inter mt-[0rem]">Documents</p>
-                                <div className="grid grid-cols-10 mt-[0.5rem]">
+                            <div className="p-3 md:p-6 bg-white">
+                                <p className="text-[1em] md:text-[1.5em] font-bold font-inter mt-[0rem]">Documents</p>
+                                <div className="grid grid-cols-3 md:grid-cols-10 mt-[0.3rem] md:mt-[0.5rem]">
                                     {
                                         props.gen.documents.map((item:any) => {
                                             return (
-                                                <div key={item._id} className="w-[120px] h-fit p-3 hover:cursor-pointer">
-                                                    <img onClick={() => props.onSetShowPdfReader({show:true, url: `${URL}/gen/user/document/${item.appName}`})} className="w-[80px] block mx-auto" src={pdfFile} alt="document pdf file"/>
-                                                    <p className="text-center mt-[0.5rem] wrap">{item.appName.split('+')[1].slice(0,8)}...</p>
+                                                <div key={item._id} className="w-[80px] md:w-[120px] h-fit p-3 hover:cursor-pointer">
+                                                    <img onClick={() => props.onSetShowPdfReader({show:true, url: `${URL}/gen/user/document/${item.appName}`})} className="w-[40px] md:w-[80px] block mx-auto" src={pdfFile} alt="document pdf file"/>
+                                                    <p className="text-center text-[0.8em] md:text-[1rem] mt-[0.5rem] wrap">{item.appName.split('+')[1].slice(0,8)}...</p>
                                                 </div>
                                             )
                                         })
@@ -88,8 +88,8 @@ function DbHome(props: any) {
                                 {
                                     props.gen.documents.length >= LIMIT 
                                     &&
-                                    <div className="mt-[1rem]">
-                                        <button onClick={() => navigate('/dashboard/documents')} className="btn btn-sm">See more</button>
+                                    <div className="mt-[0.3rem] md:mt-[1rem]">
+                                        <button onClick={() => navigate('/dashboard/documents')} className="bg-olive p-2 rounded-xl text-white md:btn text-[0.5em] md:btn-sm ">See more</button>
                                     </div>
                                 }
                             </div>
@@ -99,19 +99,19 @@ function DbHome(props: any) {
                         {
                             props.gen.images.length > 0 
                             &&
-                            <div className="p-6 bg-white mt-[2rem]">
-                                <p className="text-[1.5em] font-bold font-inter mt-[0rem]">Images</p>
-                                <div className="grid grid-cols-10 mt-[0.5rem]">
+                            <div className="p-3 md:p-6 bg-white mt-[1rem] md:mt-[2rem]">
+                                <p className="text-[1em] md:text-[1.5em] font-bold font-inter mt-[0rem]">Images</p>
+                                <div className="grid grid-cols-4 gap-3 md:gap-5 md:grid-cols-10 mt-[0.3rem] md:mt-[0.5rem]">
                                     {
                                         props.gen.images.map((item:any) => {
                                             return (
-                                            <div key={item._id} className="w-fit h-fit p-3 hover:cursor-pointer">
+                                            <div key={item._id} className="w-fit self-stretch h-fit p-3 hover:cursor-pointer">
                                                 <img 
                                                 onClick={() => props.onSetShowImageViewer({show: true, image: item.image})}
                                                 src={`${URL}/gen/user/images/${props.auth.user.id}/${item.image}`} 
-                                                className="w-[80px] h-[80px] block mx-auto" 
+                                                className="w-[40px] md:w-[80px] h-[40px] md:h-[80px] block mx-auto" 
                                                 />
-                                                <p className="text-center mt-[0.5rem]">{item.image.split('+')[0]}</p>
+                                                <p className="text-center text-[0.5em] md:text-[1em] mt-[0.5rem]">{item.image.split('+')[0]}</p>
                                             </div>
                                             )
                                         })
@@ -120,8 +120,8 @@ function DbHome(props: any) {
                                 {
                                     props.gen.images.length >= LIMIT 
                                     &&
-                                    <div className="mt-[1rem]">
-                                        <button onClick={() => navigate('/dashboard/images')} className="btn btn-sm">See more</button>
+                                    <div className="mt-[0.3rem] md:mt-[1rem]">
+                                        <button onClick={() => navigate('/dashboard/images')} className="bg-olive p-2 rounded-xl text-white md:btn text-[0.5em] md:btn-sm">See more</button>
                                     </div>
                                 }
                             </div>
@@ -132,15 +132,15 @@ function DbHome(props: any) {
                         {
                             props.gen.videos.length > 0
                             &&
-                            <div className="p-6 bg-white mt-[2rem]">
-                                <p className="text-[1.5em] font-bold font-inter mt-[0rem]">Videos</p>
-                                <div className="grid grid-cols-10 mt-[0.5rem]">
+                            <div className="p-3 md:p-6 bg-white mt-[1rem] md:mt-[2rem]">
+                                <p className="text-[1rem] text-[1.5em] font-bold font-inter mt-[0rem]">Videos</p>
+                                <div className="grid grid-cols-3 md:grid-cols-10 mt-[0.5rem]">
                                     {
                                         props.gen.videos.map((item:any) => {
                                             return (
-                                                <div key={item._id} className="w-[120px] h-fit p-3 hover:cursor-pointer">
-                                                    <img onClick={() => props.onSetShowVideoPlayer({show: true, url: `${URL}/gen/user/videos/${item.videoName}`})} className="w-[80px] block mx-auto" src={videoFile} alt="document pdf file"/>
-                                                    <p className="text-center mt-[0.5rem] wrap">{item.videoName.split('+')[1].slice(0,8)}...</p>
+                                                <div key={item._id} className="w-[80px] md:w-[120px] h-fit p-3 hover:cursor-pointer">
+                                                    <img onClick={() => props.onSetShowVideoPlayer({show: true, url: `${URL}/gen/user/videos/${item.videoName}`})} className="w-[40px] h-[40px] md:w-[80px] block mx-auto" src={videoFile} alt="document pdf file"/>
+                                                    <p className="text-center text-[0.5em] md:text-[1em] mt-[0.5rem] wrap">{item.videoName.split('+')[1].slice(0,8)}...</p>
                                                 </div>
                                             )
                                         })
@@ -149,8 +149,8 @@ function DbHome(props: any) {
                                 {
                                     props.gen.images.length >= LIMIT 
                                     &&
-                                    <div className="mt-[1rem]">
-                                        <button onClick={() => navigate('/dashboard/videos')} className="btn btn-sm">See more</button>
+                                    <div className="mt-[0.3rem] md:mt-[1rem]">
+                                        <button onClick={() => navigate('/dashboard/videos')} className="bg-olive p-2 rounded-xl text-white md:btn text-[0.5em] md:btn-sm">See more</button>
                                     </div>
                                 }
                             </div>
